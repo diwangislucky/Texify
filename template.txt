@@ -1,0 +1,33 @@
+\documentclass[11pt]{exam}
+\usepackage{graphicx}
+\usepackage{anysize}
+\usepackage{dsfont}
+\usepackage{fullpage}
+\usepackage{verbatim}
+\usepackage{dsfont}
+\usepackage{url,amsfonts, amsmath, amssymb, amsthm,color, enumerate, multicol}
+\usepackage{placeins}
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+%% Ceil and Floor
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\printanswers
+%\noprintanswers
+
+\begin{document}
+
+\title{ EECS 203: Discrete Mathematics \\
+        Homework 8 (Winter 2017)}
+\date{Due: SOMETIME IN 2017}
+\author{Kevin Zheng}
+
+\maketitle
+
+\begin{questions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\bf \item[] Textbook Questions:}
