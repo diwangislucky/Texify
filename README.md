@@ -4,9 +4,11 @@ Converts a .csv formatted table in the following format:
   
 ![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/homework_table_EECS203.png)
   
-into a standard LaTeX template (see homework/HW8EECS280.tex).
+into a standard LaTeX template  
+![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/tex_example_EECS203.png)
 
-Resulting example PDF is in homework/HW8EECS280.pdf
+Resulting example PDF
+![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pdf_example_EECS203.png)
 
 ## Installation
 Clone this repository into a preferred directory and move into it with:
