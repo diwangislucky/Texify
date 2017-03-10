@@ -1,0 +1,149 @@
+\documentclass[11pt]{exam}
+\usepackage{graphicx}
+\usepackage{anysize}
+\usepackage{dsfont}
+\usepackage{fullpage}
+\usepackage{verbatim}
+\usepackage{dsfont}
+\usepackage{url,amsfonts, amsmath, amssymb, amsthm,color, enumerate, multicol}
+\usepackage{placeins}
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+%% Ceil and Floor
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\printanswers
+%\noprintanswers
+
+\begin{document}
+
+\title{ EECS 203: Discrete Mathematics \\
+        Homework 8 (Winter 2017)}
+\date{Due: March 9, 2017}
+\author{Kevin Zheng}
+
+\maketitle
+
+\begin{questions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\bf \item[] Textbook Questions:}
+\question[2] Section 7.1 Problem 30\\
+(“What is the probability that a player ...”) 
+\begin{solution}\\
+$C(6, 5) * C(34, 1) = 6 * 34 = 204$ \\
+Dividing by the total amount of tickets, $C(40, 6) = 3838380$, \\
+it is $204 / 3,838,380 = 5.3 \times 10^{-5}$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[4] Section 7.1 Problem 34\\
+(“What is the probability that Bo, Colleen, Jeff ...”) 
+\begin{solution}\\
+(a) There are $50 * 49 * 48 * 47$ outcomes, and only one outcome where Bo, Colleen, Jeff, and Rohini win consecutively. Thus, $1 / (50 * 49 * 48 * 47) = 1/5527200$\\
+(b) The outcome is $50 * 50 * 50 * 50$. Similarly, there is only 1 outcome, so it is $1 / (50 * 50 * 50 * 50) = 1/6250000$
+
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[2] Section 7.1 Problem 36\\
+(“Which is most likely: rolling a total of 8 ...”) 
+\begin{solution}\\
+There are 5 ways to get a total of 8 when rolling 2 dice: (6,2), (5,3), (4,4), (3,5), (2,6) and 36 total possibilities, so the probability is 5/36. \\
+For 3 dice, there are 21 ways: 
+Starting with ... \\
+6 - 1 way (6, 1, 1) \\
+5 - 2 ways (5, 1, 2) and (5, 2, 1)\\
+4 - 3 ways (4, 1, 3), (4, 3, 1) and (4, 2, 2)\\
+3 - 4 ways (3, 1, 2), (3, 2, 1), (3, 3, 2), (3, 2, 3)\\
+Continuing this trend, the answer is 1 + 2 + 3 + 4 + 5 + 6 = 21. Since there are 216 possible ways to throw 3 dice, 21/216 = 0.097. 5/36 = .138 which is greater, so it is better to roll two dice.
+
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[6] Section 7.2 Problem 8\\
+(“What is the probability of these events when ...”) 
+\begin{solution}\\
+(b) 1 is no different than any other number, so if 2 was randomnized, it can either be before or after 2. Thus the probability is 1/2. \\
+(c) If 1 must immediately precede 2, then we can consider (1, 2) to be a single object. Thus it is now the probability of selecting this (1, 2) object out of n - 1 objects: $\frac{(n - 1)!}{n!}$ \\
+(d) 1/4, because 1/2 of the permutations have n before 1, and half of those have n-1 before 2.
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[2] Section 7.2 Problem 24\\
+(“What is the conditional probability that exactly four ...”) 
+\begin{solution}\\
+THHHH \\
+The T is given, while each heads has a 1/2 chance to be flipped. \\ $1 \cdot 1/2 \cdot 1/2 \cdot 1/2 \cdot 1/2 = 1/16$ 
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[2] Section 7.2 Problem 26\\
+(“Let E be the events that a randomly generated ...”) 
+\begin{solution}\\
+P(E) is 1/2 because there are $2^3 = 8$ total possibilities and 4 out of those possibilities have an odd number of 1's (100, 010, 001, 111) \\
+P(F) is 1/2 because the first digit can either be 1 or 0. \\
+$P(E \cap F)$ is 1/4 because there are 2/8 possibilities: 100 or 111. Thus, it's independent because $1/2 * 1/2 = 1/4$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[4] Section 7.2 Problem 34\\
+(“For each of the following probabilities when n ...”) 
+\begin{solution}\\
+Using the formula $P(x) = \frac{n!}{x!(n-x)!} p^x(1-p)^{n-x}$ \\
+(a) $P(0) = \frac{n!}{0!(n-0)!}p^0(1-p)^{n}$ \\
+= $\frac{n!}{n!}(1-p)^n = (1-p)^n$ \\
+(b) When there is at least 1 success, the only case where that is false is when there are exactly 0 successes. Thus, 1 - (a) = $1 - (1-p)^n$ \\
+(c) When there is at most 1 success, there are 2 cases: zero successes or 1 success. Thus, it's (a) + P(1). \\
+P(1) = $\frac{n!}{1!(n-1)!}p^1(1-p)^{n - 1}$ \\
+= $\frac{n!}{(n-1)!}p(1-p)^{n - 1}$ \\
+= $np(1 - p)^{n - 1}$ \\
+Thus it is (a) + $np(1 - p)^{n - 1}$ \\
+= $(1 - p)^n + np(1 - p)^{n - 1}$ \\
+(d) Similar to (b), this is just 1 - (c). $1 - (1 - p)^n + np(1 - p)^{n - 1}$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[2] Section 7.3 Problem 6\\
+(“When a test for steroids is given to soccer ...”) 
+\begin{solution}\\
+Given that U = Uses steroies and P = Tests positive: \\
+$P(U | P) = \frac{P(P|U) P(U)}{P(P|U)P(U) + P(P|\bar{U})P(\bar{U})}$ \\
+= $\frac{.98 * .05}{.98 * .05 + .02 * .95}$ \\
+= $0.3$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[6] Section 7.3 Problem 10\\
+(“Suppose that 4 of the patients tested ...”) 
+\begin{solution}\\
+Given that I = Infected with avian influenza and P = Tests positvie: \\
+(a) $P(I | P) = \frac{P(P|I) P(I)}{P(P|I)P(I) + P(P|\bar{I})P(\bar{I})}$ \\
+= $\frac{.97 * .04}{.97 * .04 + .02 * .96} = .669$ \\
+(b) This is the complement, so it is $1 - .669 = .331$ \\
+(c) $P(I | \bar{P}) = \frac{P(\bar{P}|I) P(I)}{P(\bar{P}|I)P(I) + P(\bar{P}|\bar{I})P(\bar{I})}$ \\
+= $\frac{.03 * .04}{.03 * .04 + .98 * .96} = .001$ \\
+(d) This is the complement, so it is $1 - .001 = .999$
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\question[4] Section 7.3 Problem 16\\
+(“Ramesh can get to work in three different ...”) 
+\begin{solution}\\
+Given: L = late, C = car, B = Bike, U = B[U]s. \\
+(a)$P(C | L) = \frac{P(L|C)P(C)}{P(L|C)P(C) + P(L|B)P(B) + P(L|U)P(U)}$ \\
+We can cancel out the P(C), P(B), and P(U) because they are all 1/3. \\
+= $\frac{.5}{.5 + .05 + .2} = 2/3$ \\
+(b) By simply changing the values, \\
+$P(C | L) = \frac{.5 * .3}{.5*.3 + .05*.6 + .2*.1} = .75$
+
+\end{solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{questions}
+
+
+\end{document}

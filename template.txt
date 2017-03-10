@@ -22,7 +22,7 @@
 \title{ EECS 203: Discrete Mathematics \\
         Homework 8 (Winter 2017)}
 \date{Due: SOMETIME IN 2017}
-\author{Kevin Zheng}
+\author{INSERT NAME HERE}
 
 \maketitle
 
@@ -31,3 +31,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 {\bf \item[] Textbook Questions:}
+!split
+
+\end{questions}
+
+\end{document}
