@@ -2,13 +2,15 @@
 
 Converts a .csv formatted table in the following format: 
   
-![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/homework_table_EECS203.png)
+![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pictures/homework_table_EECS203.png?raw=true)
   
 into a standard LaTeX template  
-![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/tex_example_EECS203.png)
+  
+![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pictures/tex_example_EECS203.png)
 
-Resulting example PDF
-![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pdf_example_EECS203.png)
+Resulting example PDF  
+  
+![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pictures/pdf_example_EECS203.png)
 
 ## Installation
 Clone this repository into a preferred directory and move into it with:
