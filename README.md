@@ -19,6 +19,10 @@ git clone https://github.com/kev-zheng/latex-convert.git
 cd latex-convert
 ```
 
+## Dependencies
+latex-convert.py uses Python 3 and the Pandas library.
+Install pandas using your preferred package manager.
+
 ## Usage
 First format your pdf file into the correct .csv format  
 PDF readers like Adobe Acrobat, Okular should have this functionality
