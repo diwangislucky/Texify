@@ -1,9 +1,9 @@
 ## latex-convert.py
 
 Converts a .csv formatted table in the following format: 
-
+  
 ![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/homework_table_EECS203.png)
-
+  
 into a standard LaTeX template (see homework/HW8EECS280.tex).
 
 Resulting example PDF is in homework/HW8EECS280.pdf
@@ -16,7 +16,7 @@ cd latex-convert
 ```
 
 ## Usage
-First format your pdf file into the correct .csv format
+First format your pdf file into the correct .csv format  
 PDF readers like Adobe Acrobat, Okular should have this functionality
 
 Place the .csv into the latex-convert folder
