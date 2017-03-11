@@ -20,9 +20,9 @@
 \begin{document}
 
 \title{ EECS 203: Discrete Mathematics \\
-        Homework 8 (Winter 2017)}
-\date{Due: SOMETIME IN 2017}
-\author{INSERT NAME HERE}
+        Homework **HOMEWORK NUMBER** (Winter 2017)}
+\date{Due: ** DUE DATE **}
+\author{ ** NAME **}
 
 \maketitle
 

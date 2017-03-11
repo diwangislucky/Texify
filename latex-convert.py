@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-import pandas as pd
+import tabula
 import os
 import sys
 
@@ -14,6 +14,7 @@ import sys
 # \end{solution}
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 def makeProblem(points, section, problemNum, statement):
     problem = "\n" + r"\question[" + str(points) + "]"
@@ -29,39 +30,40 @@ def makeProblem(points, section, problemNum, statement):
     return problem
 
 
-def main():
+def usage_fail():
+    print("Usage: python3 latex-convert.py [file.pdf]")
+    sys.exit(0)
 
-    # Check arguments
-    if len(sys.argv) != 2:
-        print("Usage: python3 latex-convert.py [file.csv]")
-        sys.exit(0)
-    data_file = sys.argv[1]
+def check_files(pdf_file, template_file):
+    if not os.path.exists(pdf_file) or not os.path.exists(template_file):
+        print("Error: " + pdf_file + " or " + " template_file does not exist")
+        usage_fail()
 
-    if not os.path.exists(data_file):
-        print("Error: " + data_file + " does not exist")
-        print("Usage: python3 latex-convert.py [file.csv]")
 
-    # Check template
-    if not os.path.exists("template.txt"):
-        print("'template.txt' does not exist")
-        sys.exit(0)
+def process_pdf(pdf_file):
+    df = tabula.read_pdf(pdf_file)
 
-    # Process csv
-    df = pd.read_csv(data_file)
+    # Problems that go on for two lines do not have 'Points'
+    df = df.dropna(axis=0, subset=['Points']).reset_index()
 
-    # Fill in missing sections
+    # Fill in missing 'Section'
     df['Section'] = df['Section'].replace(method='ffill')
 
-    # Split problems and problem numbers
+    # Split 'Problem' into 'Problem Num' and 'Problem Sections' with '('
     df['Problem Num'], df['Problem'] = df['Problem'].str.split(' ', 1).str
+    df['Problem Sections'], df['Problem'] = df['Problem'].str.split('(', 1).str
 
-    # Open file to write
-    if not os.path.exists("homework"):
-        os.makedirs("homework")
-    homework = open(os.path.join("homework", "homework.txt"), 'w')
+    # Delete right ')'
+    df['Problem'] = df['Problem'].map(lambda x: x.rstrip(')'))
+
+    return df
+
+
+def write_tex(df, template_file, output_dir, output_file):
+    output = open(os.path.join(output_dir, output_file), 'w')
 
     # Write output file
-    with open('template.txt', 'r') as template:
+    with open(template_file, 'r') as template:
         for line in template:
             if line == "!split\n":
                 # Print problems
@@ -70,14 +72,33 @@ def main():
                     section = df["Section"][i]
                     problemNum = df["Problem Num"][i]
                     statement = df["Problem"][i]
-                    homework.write(makeProblem(points,
-                                        section, problemNum, statement))
+                    output.write(makeProblem(points, section,
+                                 problemNum, statement))
             else:
-                homework.write(line)
+                output.write(line)
+    output.close()
 
-    homework.close()
-    os.rename(os.path.join("homework", "homework.txt"),
-                                        os.path.join("homework", data_file[:-4] + '.tex'))
+
+def main():
+
+    if len(sys.argv) != 2:
+        usage_fail()
+
+    pdf_file = sys.argv[1]
+    check_files(pdf_file, "template.txt")
+
+    process_pdf(pdf_file)
+
+    # Open output file and directory
+    if not os.path.exists("homework"):
+        os.makedirs("homework")
+    output_dir = os.path.join("homework", pdf_file[:-4])
+    output_file = pdf_file[:-4] + ".tex"
+    os.makedirs(output_dir)
+
+    df = process_pdf(pdf_file)
+
+    write_tex(df, "template.txt", output_dir, output_file)
 
 
 if __name__ == '__main__':

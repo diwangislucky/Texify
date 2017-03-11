@@ -1,14 +1,9 @@
 ## latex-convert.py
 
-Converts a .csv formatted table in the following format: 
-  
-![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pictures/homework_table_EECS203.png?raw=true)
-  
-into a standard LaTeX template  
-  
+Converts an EECS 203 pdf into a standard LaTeX template:   
 ![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pictures/tex_example_EECS203.png)
 
-Resulting example PDF  
+####Resulting example PDF  
   
 ![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pictures/pdf_example_EECS203.png)
 
@@ -20,16 +15,20 @@ cd latex-convert
 ```
 
 ## Dependencies
-latex-convert.py uses Python 3 and the Pandas library.
-Install pandas using your preferred package manager.
+latex-convert.py uses __Python 3__,  __Pandas__, and __Tabula__.
+Install [pandas](http://pandas.pydata.org/) and [tabula (Python wrapper)](https://github.com/chezou/tabula-py) using your preferred package manager.
+```
+pip3 install pandas
+pip3 install tabula-py
+```
 
 ## Usage
-First format your pdf file into the correct .csv format  
-PDF readers like Adobe Acrobat, Okular should have this functionality
-
-Place the .csv into the latex-convert folder
-
 Run:
 ```
- python3 latex-convert.py [filename]
+python3 latex-convert.py [filename.pdf]
+```
+Or use the included .sh file by making it executable:
+```
+chmox +x run.sh
+./run.sh [filename.pdf]
 ```
