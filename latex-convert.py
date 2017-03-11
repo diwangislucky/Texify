@@ -56,8 +56,10 @@ def process_pdf(pdf_file):
     df['Problem Num'], df['Problem'] = df['Problem'].str.split(' ', 1).str
     df['Problem Sections'], df['Problem'] = df['Problem'].str.split('(', 1).str
     df['Problem Sections'] = df['Problem Sections'].str.split(",")
-    # Delete right ')'
+
+    # Delete right ')' and add missing ' " '
     df['Problem'] = df['Problem'].map(lambda x: x.rstrip(')'))
+    df['Problem'].map(lambda x: x + '"' if not x.endswith(('"', '”')) else x)
 
     return df
 
