@@ -92,10 +92,13 @@ def main():
     # Open output file and directory
     if not os.path.exists("homework"):
         os.makedirs("homework")
-    output_dir = os.path.join("homework", pdf_file[:-4])
-    output_file = pdf_file[:-4] + ".tex"
-    os.makedirs(output_dir)
 
+    output_dir = os.path.join("homework", pdf_file[:-4])
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    output_file = pdf_file[:-4] + ".tex"
+    
     df = process_pdf(pdf_file)
 
     write_tex(df, "template.txt", output_dir, output_file)
