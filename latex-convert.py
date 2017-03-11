@@ -5,7 +5,7 @@ import os
 import sys
 
 # EFFECTS Creates a problem in the format of:
-# \question[points] Section [section] Problem [problem]\\
+# \question[[points]] Section [section] Problem [problem]\\
 # ([statement])
 # \begin{solution}\\
 #
@@ -16,23 +16,26 @@ import sys
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-def makeProblem(points, section, problemNum, statement):
-    problem = "\n" + r"\question[" + str(points) + "]"
-    problem += r" Section " + str(section)
-    problem += r" Problem " + str(problemNum) + r"\\" + "\n"
-    problem += statement + "\n"
-    problem += r"\begin{solution}\\" + "\n\n\n\n"
-    problem += r"\end{solution}" + "\n"
-    problem += '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%' \
-               '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n' \
-               '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%' \
-               '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
+def makeProblem(points, section, problemNum, statement, problemSections):
+    problem = ('\\question[{}] Section {} '.format(points, section) +
+               'Problem {} \\\\\n{}\n'.format(problemNum, statement) +
+               '\\begin{solution}\\\\\n')
+    for section in problemSections:
+        section = section.strip()
+        if section:
+            problem += '({})\\\\\n'.format(section)
+    problem += ('\n\n\n\n\\end{solution}\n'
+                '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
+                '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'
+                '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
+                '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n')
     return problem
 
 
 def usage_fail():
     print("Usage: python3 latex-convert.py [file.pdf]")
     sys.exit(0)
+
 
 def check_files(pdf_file, template_file):
     if not os.path.exists(pdf_file) or not os.path.exists(template_file):
@@ -52,7 +55,7 @@ def process_pdf(pdf_file):
     # Split 'Problem' into 'Problem Num' and 'Problem Sections' with '('
     df['Problem Num'], df['Problem'] = df['Problem'].str.split(' ', 1).str
     df['Problem Sections'], df['Problem'] = df['Problem'].str.split('(', 1).str
-
+    df['Problem Sections'] = df['Problem Sections'].str.split(",")
     # Delete right ')'
     df['Problem'] = df['Problem'].map(lambda x: x.rstrip(')'))
 
@@ -72,8 +75,9 @@ def write_tex(df, template_file, output_dir, output_file):
                     section = df["Section"][i]
                     problemNum = df["Problem Num"][i]
                     statement = df["Problem"][i]
+                    problemSections = df["Problem Sections"][i]
                     output.write(makeProblem(points, section,
-                                 problemNum, statement))
+                                 problemNum, statement, problemSections))
             else:
                 output.write(line)
     output.close()
@@ -93,11 +97,11 @@ def main():
     if not os.path.exists("homework"):
         os.makedirs("homework")
 
-    output_dir = os.path.join("homework", pdf_file[:-4])
+    output_dir = os.path.join("homework", os.path.splitext(pdf_file)[0])
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    output_file = pdf_file[:-4] + ".tex"
+    output_file = os.path.splitext(pdf_file)[0] + ".tex"
     
     df = process_pdf(pdf_file)
 
