@@ -7,7 +7,7 @@
 \usepackage{dsfont}
 \usepackage{url,amsfonts, amsmath, amssymb, amsthm,color, enumerate, multicol}
 \usepackage{placeins}
-\usepackage{amsmath}
+
 \usepackage{mathtools}
 
 %% Ceil and Floor
@@ -36,3 +36,5 @@
 \end{questions}
 
 \end{document}
+
+% Credit to Emily Graetz for the Homework Template
