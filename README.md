@@ -21,7 +21,7 @@ Install [pandas](http://pandas.pydata.org/) and [tabula (Python wrapper)](https:
 pip3 install pandas
 pip3 install tabula-py
 ```
-
+tabula-py also requires you to have Java 7 or 8 installed, so make sure to check tabula-py's dependencies.
 ## Usage
 Run:
 ```
