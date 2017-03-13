@@ -16,11 +16,11 @@ import sys
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-def makeProblem(points, section, problemNum, statement, problemSections):
+def make_problem(points, section, problem_num, statement, problem_sections):
     problem = ('\\question[{}] Section {} '.format(points, section) +
-               'Problem {} \\\\\n{}\n'.format(problemNum, statement) +
+               'Problem {} \\\\\n{}\n'.format(problem_num, statement) +
                '\\begin{solution}\\\\\n')
-    for section in problemSections:
+    for section in problem_sections:
         section = section.strip()
         if section:
             problem += '({})\\\\\n'.format(section)
@@ -52,10 +52,10 @@ def process_pdf(pdf_file):
     # Fill in missing 'Section'
     df['Section'] = df['Section'].replace(method='ffill')
 
-    # Split 'Problem' into 'Problem Num' and 'Problem Sections' with '('
-    df['Problem Num'], df['Problem'] = df['Problem'].str.split(' ', 1).str
-    df['Problem Sections'], df['Problem'] = df['Problem'].str.split('(', 1).str
-    df['Problem Sections'] = df['Problem Sections'].str.split(",")
+    # Split 'Problem' into 'Number' and 'Parts' with '('
+    df['Number'], df['Problem'] = df['Problem'].str.split(' ', 1).str
+    df['Parts'], df['Problem'] = df['Problem'].str.split('(', 1).str
+    df['Parts'] = df['Parts'].str.split(",")
 
     # Delete right ')' and add missing ' " '
     df['Problem'] = df['Problem'].map(lambda x: x.rstrip(')'))
@@ -71,22 +71,18 @@ def write_tex(df, template_file, output_dir, output_file):
     with open(template_file, 'r') as template:
         for line in template:
             if line == "!split\n":
-                # Print problems
-                for i in range(len(df)):
-                    points = df["Points"][i]
-                    section = df["Section"][i]
-                    problemNum = df["Problem Num"][i]
-                    statement = df["Problem"][i]
-                    problemSections = df["Problem Sections"][i]
-                    output.write(makeProblem(points, section,
-                                 problemNum, statement, problemSections))
+                for i in df.index:
+                    output.write(make_problem(df["Points"][i],
+                                              df["Section"][i],
+                                              df["Number"][i],
+                                              df["Problem"][i],
+                                              df["Parts"][i]))
             else:
                 output.write(line)
     output.close()
 
 
 def main():
-
     if len(sys.argv) != 2:
         usage_fail()
 
@@ -104,7 +100,7 @@ def main():
         os.makedirs(output_dir)
 
     output_file = os.path.splitext(pdf_file)[0] + ".tex"
-    
+
     df = process_pdf(pdf_file)
 
     write_tex(df, "template.txt", output_dir, output_file)
