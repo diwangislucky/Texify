@@ -32,3 +32,5 @@ Or use the included .sh file by making it executable:
 chmox +x run.sh
 ./run.sh [filename.pdf]
 ```
+
+Your finished .pdf files should be in a new directory called "homework"
