@@ -37,4 +37,6 @@
 
 \end{document}
 
+% *** REMEMBER TO DOUBLE CHECK HOMEWORK PDF FOR MISSING PROBLEMS ***
+
 % Credit to Emily Graetz for the Homework Template
