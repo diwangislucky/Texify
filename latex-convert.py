@@ -20,7 +20,6 @@ def make_problem(points, section, problem_num, statement, problem_sections):
     problem = ('\\question[{}] Section {} '.format(points, section) +
                'Problem {} \\\\\n{}\n'.format(problem_num, statement) +
                '\\begin{solution}\\\\\n')
-    print(problem_sections)
     for section in problem_sections:
         section = section.strip()
         if section:
@@ -56,14 +55,13 @@ def process_pdf(pdf_file):
     # Split 'Problem' into 'Number' and 'Parts' with '('
     df['Number'], df['Problem'] = df['Problem'].str.split(' ', 1).str
     df['Parts'], df['Problem'] = df['Problem'].str.split('(', 1).str
-    print(df)
+
+    # Added handling for nan parts - aka no problem statement
     df['Parts'] = df['Parts'].str.split(",").fillna("N/A - Check Spec")
 
     # Delete right ')' and add missing ' " '
     df['Problem'] = df['Problem'].map(lambda x: str(x).rstrip(')'))
     df['Problem'].map(lambda x: x + '"' if not x.endswith(('"', '”')) else x)
-
-    # When points are not a set number
 
     return df
 
