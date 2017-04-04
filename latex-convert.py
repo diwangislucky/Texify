@@ -1,10 +1,14 @@
 #! /usr/bin/env python3
 
+# latex-convert.py
+# Constructs a .tex file using an EECS 203 PDF homework
+# and the "template.txt" file
+
 import tabula
 import os
 import sys
 
-# EFFECTS Creates a problem in the format of:
+# Creates a problem in the format of:
 # \question[[points]] Section [section] Problem [problem]\\
 # ([statement])
 # \begin{solution}\\
