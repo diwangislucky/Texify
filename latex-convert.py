@@ -24,10 +24,13 @@ def make_problem(points, section, problem_num, statement, problem_sections):
     problem = ('\\question[{}] Section {} '.format(points, section) +
                'Problem {} \\\\\n{}\n'.format(problem_num, statement) +
                '\\begin{solution}\\\\\n')
-    for section in problem_sections:
-        section = section.strip()
-        if section:
-            problem += '({})\\\\\n'.format(section)
+    try:
+        for section in problem_sections:
+            section = section.strip()
+            if section:
+                problem += '({})\\\\\n'.format(section)
+    except TypeError:
+        pass
     problem += ('\n\n\n\n\\end{solution}\n'
                 '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
                 '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n'
@@ -56,14 +59,14 @@ def process_pdf(pdf_file):
     # Fill in missing 'Section'
     df['Section'] = df['Section'].replace(method='ffill')
 
-    # Split 'Problem' into 'Number' and 'Parts' with '('
-    df['Number'], df['Problem'] = df['Problem'].str.split(' ', 1).str
-    df['Parts'], df['Problem'] = df['Problem'].str.split('(', 1).str
+    # Split at first period
+    df['Number'], df['Problem'] = df['Problem'].str.split('.', 1).str
+    df['Number'], df['Parts'] = df['Number'].str.split(' ', 1).str
 
-    # Added handling for nan parts - aka no problem statement
-    df['Parts'] = df['Parts'].str.split(",").fillna("N/A - Check Spec")
+    # Split parts by comma
+    df['Parts'] = df['Parts'].str.split(",")
 
-    # Delete right ')' and add missing ' " '
+    # Clean up ) and ""
     df['Problem'] = df['Problem'].map(lambda x: str(x).rstrip(')'))
     df['Problem'].map(lambda x: x + '"' if not x.endswith(('"', '”')) else x)
 
