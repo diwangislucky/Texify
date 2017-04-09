@@ -5,7 +5,7 @@ Converts an EECS 203 pdf into a standard LaTeX template:
 
 ![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pictures/tex_example_EECS203.png)
 
-####Resulting example PDF  
+#### Resulting example PDF  
   
 ![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pictures/pdf_example_EECS203.png)
 
