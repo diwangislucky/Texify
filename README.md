@@ -7,7 +7,7 @@ Converts an EECS 203 pdf into a standard LaTeX template:
 
 #### Resulting example PDF  
   
-![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pictures/pdf_example_resize_EECS203.png)
+![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pictures/pdf_example_EECS203_resize.png)
 
 ## Installation
 Clone this repository into a preferred directory and move into it with:
