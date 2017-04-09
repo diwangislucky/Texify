@@ -19,25 +19,27 @@ def main():
 
     pdf_file = sys.argv[1]
     template_file = "template.txt"
+    script_path = os.path.dirname(os.path.realpath(__file__))
 
-    if not os.path.exists(pdf_file) or not os.path.exists(template_file):
-        print("Error: {} or {} does not exist").format(pdf_file, template_file)
+    if not os.path.exists(pdf_file) or \
+       not os.path.exists(os.path.join(script_path, template_file)):
+        print("Error: {} or {} does not exist".format(pdf_file, template_file))
         sys.exit(0)
 
     # Open output file and directory
     if not os.path.exists("homework"):
         os.makedirs("homework")
 
-    # Make new homework directory if it does not exist
-    output_dir = os.path.join("homework", os.path.splitext(pdf_file)[0])
+    # Make new directory for homework
+    output_dir = os.path.splitext(os.path.abspath(pdf_file))[0]
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
     df = process_pdf(pdf_file)
 
     # Write to output .tex file
-    output_file = os.path.splitext(pdf_file)[0] + ".tex"
-    write_tex(df, template_file, output_dir, output_file)
+    output_file = os.path.splitext(os.path.basename(pdf_file))[0] + ".tex"
+    write_tex(df, os.path.join(script_path, template_file), output_dir, output_file)
 
 
 def make_problem(points, section, problem_num, statement, problem_sections):
@@ -93,12 +95,12 @@ def process_pdf(pdf_file):
     return df
 
 
-def write_tex(df, template_file, output_dir, output_file):
+def write_tex(df, template_path, output_dir, output_file):
     """Write new output file with dataframe and template.txt"""
     output = open(os.path.join(output_dir, output_file), 'w')
 
     # Write output file
-    with open(template_file, 'r') as template:
+    with open(template_path, 'r') as template:
         for line in template:
             if line == "!split\n":
                 for i in df.index:
