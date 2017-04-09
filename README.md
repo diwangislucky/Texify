@@ -1,15 +1,11 @@
 # latex-convert
 
 Converts an EECS 203 pdf into a standard LaTeX template:  
-<p align="center">
 ![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pictures/homework_example_EECS203.png)
 ![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pictures/tex_example_EECS203.png)
-</p>
 
 #### Resulting example PDF  
-<p align="center">
 ![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pictures/pdf_example_EECS203.png)
-</p>
 
 ## Installation
 Clone this repository into a preferred directory and move into it with:
