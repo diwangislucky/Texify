@@ -19,6 +19,9 @@
 
 \begin{document}
 
+% *** Double check homework pdf for problem accuracy! ***
+% *** Move this file to another directory so latex-convert does not override! ***
+
 \title{ EECS 203: Discrete Mathematics \\
         Homework **HOMEWORK NUMBER** (Winter 2017)}
 \date{Due: ** DUE DATE **}
@@ -36,7 +39,5 @@
 \end{questions}
 
 \end{document}
-
-% *** REMEMBER TO DOUBLE CHECK HOMEWORK PDF FOR MISSING PROBLEMS ***
 
 % Credit to Emily Graetz for the Homework Template
