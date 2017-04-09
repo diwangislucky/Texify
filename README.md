@@ -1,6 +1,8 @@
 # latex-convert
 
-Converts an EECS 203 pdf into a standard LaTeX template:   
+Converts an EECS 203 pdf into a standard LaTeX template:  
+![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pictures/homework_example_EECS203.png)
+
 ![alt tag](https://github.com/kev-zheng/latex-convert/blob/master/pictures/tex_example_EECS203.png)
 
 ####Resulting example PDF  
@@ -13,6 +15,11 @@ Clone this repository into a preferred directory and move into it with:
 git clone https://github.com/kev-zheng/latex-convert.git
 cd latex-convert
 ```
+Make file executable and create a symlink to use this script anywhere
+```
+chmod +x latex-convert.py
+ln -s $PWD/latex-convert.py /usr/local/bin/latex-convert
+```
 
 ## Dependencies
 latex-convert.py uses __Python 3__,  __Pandas__, and __Tabula__.
@@ -24,14 +31,9 @@ pip3 install requests
 ```
 tabula-py also requires you to have Java 7 or 8 installed, so make sure to check tabula-py's dependencies.
 ## Usage
-Run:
+Run in .pdf directory
 ```
-python3 latex-convert.py [filename.pdf]
+latex-convert [FILEPATH.pdf]
 ```
-Or use the included .sh file by making it executable:
-```
-chmox +x run.sh
-./run.sh [filename.pdf]
-```
+Your finished .tex file should be in a new directory called "FILEPATH"
 
-Your finished .pdf files should be in a new directory called "homework"
