@@ -23,9 +23,9 @@
 % *** Move this file to another directory so latex-convert does not override! ***
 
 \title{ EECS 203: Discrete Mathematics \\
-        Homework **HOMEWORK NUMBER** (Winter 2017)}
-\date{Due: ** DUE DATE **}
-\author{ ** NAME **}
+        Homework [Homework Number] (Winter 2017)}
+\date{Due: [Due Date] }
+\author{ [Name] }
 
 \maketitle
 
