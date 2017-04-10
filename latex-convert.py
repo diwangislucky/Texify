@@ -87,7 +87,7 @@ def process_pdf(pdf_file):
         if ~np.isnan(df['Points'][i]):
             for x in range(i + 1, len(df)):
                 if np.isnan(df['Points'][x]):
-                    df['Problem'][i] += " " + df['Problem'][x]
+                    df['Problem'][i] += " {}".format(df['Problem'][x])
                 else:
                     break
 
@@ -102,13 +102,11 @@ def process_pdf(pdf_file):
         df['Problem'] = df['Problem'].str.replace(c, '${}$'.format(c))
 
     # Extract numbers and problem
-    df['Number'] = df['Problem'].str.extract('(^\d+\.?\d*)')
-    df['Parts'] = df['Problem'].str.extract('(^\d+\.?\d*)\s*([a-z,]+)')[1]
+    df['Number'] = df['Problem'].str.extract('(^\d+\.?\d*)', expand=False)
+    df['Parts'] = df['Problem'].str.extract('^\d+\.?\d*\s*([a-z,]+)', expand=False)
 
     # Split 'Parts' by comma into a list
     df['Parts'] = df['Parts'].str.split(",")
-
-    print(df)
 
     return df
 
