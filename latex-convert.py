@@ -10,6 +10,8 @@ Kevin Zheng kevzheng@umich.edu
 import os
 import sys
 import tabula
+import numpy as np
+import pandas as pd
 
 
 def main():
@@ -42,7 +44,7 @@ def main():
     write_tex(df, os.path.join(script_path, template_file), output_dir, output_file)
 
 
-def make_problem(points, section, problem_num, statement, problem_sections):
+def make_problem(points, section, problem_num, statement, parts):
     """Return a string in the format of:
     \question[[points]] Section [section] Problem [problem]\\
     ([statement])
@@ -57,10 +59,10 @@ def make_problem(points, section, problem_num, statement, problem_sections):
                'Problem {} \\\\\n{}\n'.format(problem_num, statement) +
                '\\begin{solution}\\\\\n')
     try:
-        for section in problem_sections:
-            section = section.strip()
-            if section:
-                problem += '({})\\\\\n'.format(section)
+        for part in parts:
+            part = part.strip()
+            if part:
+                problem += '({})\\\\\n'.format(part)
     except TypeError:
         pass
     problem += ('\n\n\n\n\\end{solution}\n'
@@ -73,24 +75,40 @@ def make_problem(points, section, problem_num, statement, problem_sections):
 
 def process_pdf(pdf_file):
     """Import and process .pdf file using Tabula and Pandas"""
-    df = tabula.read_pdf(pdf_file)
+    pd.options.display.max_colwidth = 100
 
-    # Problems that go on for two lines do not have 'Points'
-    df = df.dropna(axis=0, subset=['Points']).reset_index()
+    df = tabula.read_pdf(pdf_file, pages="all")
 
     # Fill in missing 'Section'
     df['Section'] = df['Section'].replace(method='ffill')
 
-    # Split at first period and space
-    df['Number'], df['Problem'] = df['Problem'].str.split('.', 1).str
-    df['Number'], df['Parts'] = df['Number'].str.split(' ', 1).str
+    # Concatenate problems that go on for multiple lines
+    for i in range(len(df)):
+        if ~np.isnan(df['Points'][i]):
+            for x in range(i + 1, len(df)):
+                if np.isnan(df['Points'][x]):
+                    df['Problem'][i] += " " + df['Problem'][x]
+                else:
+                    break
+
+    # Delete lines where 'Points' is nan
+    df = df.dropna(axis=0, subset=['Points']).reset_index()
+
+    # Remove unnecessary characters
+    for c in r"""."'^“”/√_""":
+        df['Problem'] = df['Problem'].str.replace(c, '')
+    # Add $$ to math symbols
+    for c in r"""<>""":
+        df['Problem'] = df['Problem'].str.replace(c, '${}$'.format(c))
+
+    # Extract numbers and problem
+    df['Number'] = df['Problem'].str.extract('(^\d+\.?\d*)')
+    df['Parts'] = df['Problem'].str.extract('(^\d+\.?\d*)\s*([a-z,]+)')[1]
 
     # Split 'Parts' by comma into a list
     df['Parts'] = df['Parts'].str.split(",")
 
-    # Clean up ) and ""
-    df['Problem'] = df['Problem'].map(lambda x: str(x).rstrip(')'))
-    df['Problem'].map(lambda x: x + '"' if not x.endswith(('"', '”')) else x)
+    print(df)
 
     return df
 
