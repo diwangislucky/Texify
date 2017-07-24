@@ -26,7 +26,7 @@ tabula-py also requires you to have Java 7 or 8 installed, so make sure to check
 ## Usage
 Run in .pdf directory
 ```
-texify [FILEPATH.pdf]
+python3 texify [FILEPATH.pdf]
 ```
 Your finished .tex file should be in a new directory called "FILEPATH"
 
